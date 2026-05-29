@@ -8,7 +8,7 @@ This is a complete implementation of **SASRec** (Self-Attentive Sequential Recom
 
 - **Model**: SASRec (211,950 parameters)
 - **Dataset**: MovieLens-1M (6,040 users, 3,416 movies, 999,611 interactions)
-- **Accuracy**: 78.5% Hit@10 (vs paper 82.45%) — 98.4% match
+- **Accuracy**: NDCG@10 58.11% 
 - **Latency**: 2.3ms per recommendation (CPU)
 - **Deployment**: AWS EC2 (t3.micro, free tier)
 
@@ -219,8 +219,8 @@ recsys/
 ## Performance Metrics
 
 ### Accuracy
-- **Hit@10**: 78.49% (Paper: 82.45%, Match: 95.2%)
-- **NDCG@10**: 58.11% (Paper: 59.05%, Match: 98.4%)
+- **NDCG@10**: 58.11% 
+- **Hit@10**: 78.49% 
 
 ### Inference Latency
 - Single user (batch 1): 1.81ms
@@ -230,10 +230,10 @@ recsys/
 
 ### Training
 - Total parameters: 211,950
-- Training epochs: 500
-- Best epoch: 499
+- Best validation NDCG: 0.5811 
 - Training time: ~8 hours (T4 GPU)
 - Dataset: 999,611 interactions from 6,040 users
+- Note: Checkpoint saved based on best validation NDCG, not training loss
 
 ## Key Findings
 
@@ -242,9 +242,10 @@ recsys/
 - Early stopping at 100 epochs would miss 40% of improvement
 - Learning rate scheduling (StepLR) essential
 
-**2. Model Depth Critical**
-- 2 blocks >> 1 block (-28% NDCG without second block)
-- Positional encoding helps (+24% NDCG with PE)
+**2. Model Depth & Positional Encoding Essential**
+- Removing second attention block: −28% NDCG (0.5044 → 0.3632)
+- Removing positional encoding: −24% NDCG (0.5044 → 0.3835)
+- PE impact varies by user segment: most beneficial for short-sequence users (<20 items) where positional information is more discriminative than for long-sequence users (>100 items)
 
 **3. Cold-Start Weakness**
 - Model performs best on short sequences (<20 items): Hit@10=79.1%
@@ -264,11 +265,10 @@ recsys/
 - **Storage**: S3 bucket for model artifact (0.8 MB)
 - **Region**: us-east-2 (Ohio)
 - **Uptime**: 24/7
-- **Cost**: $0/month (12 months free tier)
 
 ### How to SSH
 ```bash
-ssh -i ~/Downloads/sacrec-key.pem ubuntu@18.225.169.201
+# SSH access available for maintainer
 ```
 
 ### View Logs
@@ -314,7 +314,7 @@ Based on the paper: [Self-Attentive Sequential Recommendation](https://arxiv.org
 ```
 @inproceedings{kang2018self,
   title={Self-attentive sequential recommendation},
-  author={Kang, Wang-Cheng and McCallum, Andrew},
+  author={Kang, Wang-Cheng and McAuley, Julian},
   booktitle={2018 IEEE 8th International Conference on Data Mining (ICDM)},
   pages={197--206},
   year={2018},
@@ -325,5 +325,4 @@ Based on the paper: [Self-Attentive Sequential Recommendation](https://arxiv.org
 ## License
 
 MIT
-
 
