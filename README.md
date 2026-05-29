@@ -16,8 +16,6 @@ This is a complete implementation of **SASRec** (Self-Attentive Sequential Recom
 
 **Base URL**: `http://18.225.169.201:8000`
 
-**Status**: ✅ Running and healthy
-
 ## Quick Start
 
 ### Test Health
@@ -328,12 +326,4 @@ Based on the paper: [Self-Attentive Sequential Recommendation](https://arxiv.org
 
 MIT
 
-## Contact
 
-For questions or issues, contact: your-email@example.com
-
----
-
-**Status**: ✅ Production Ready  
-**Last Updated**: May 29, 2026  
-**API Health**: Healthy
