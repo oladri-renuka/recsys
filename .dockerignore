@@ -1,0 +1,11 @@
+__pycache__
+*.pyc
+.git
+.DS_Store
+venv/
+env/
+.env
+*.log
+nohup.out
+results/best_model.pt
+ml-1m/

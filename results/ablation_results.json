@@ -1,0 +1,19 @@
+{
+  "default": {
+    "hit_at_10": 0.7067880794701987,
+    "ndcg_at_10": 0.5043776611711572,
+    "description": "2 blocks, positional embedding"
+  },
+  "no_pe": {
+    "hit_at_10": 0.5043046357615895,
+    "ndcg_at_10": 0.38354154190110196,
+    "description": "2 blocks, NO positional embedding",
+    "best_epoch": 100
+  },
+  "one_block": {
+    "hit_at_10": 0.43509933774834436,
+    "ndcg_at_10": 0.36321929263594305,
+    "description": "1 block, positional embedding",
+    "best_epoch": 80
+  }
+}
